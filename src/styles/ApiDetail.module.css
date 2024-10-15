@@ -1,0 +1,28 @@
+/* src/pages/ApiDetail.module.css */
+
+.api-detail-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .api-detail-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .api-detail-container p {
+    margin-bottom: 10px;
+  }
+  
+  .api-detail-container a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .api-detail-container a:hover {
+    text-decoration: underline;
+  }
+  
