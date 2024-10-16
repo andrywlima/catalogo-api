@@ -21,9 +21,13 @@ import { styled } from '@mui/material/styles';
 
 const drawerWidth = 240;
 
-// Estilizando o AppBar
+// Estilizando o AppBar sem a propriedade `open`
 const AppBarStyled = styled(AppBar)(({ theme }) => ({
   zIndex: theme.zIndex.appBar, // Usando o zIndex do AppBar
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
 }));
 
 // Estilizando o Drawer
@@ -36,7 +40,7 @@ const DrawerStyled = styled(Drawer)(({ theme }) => ({
 }));
 
 const PersistentDrawer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false); // Inicializa o Drawer fechado
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -49,7 +53,8 @@ const PersistentDrawer: React.FC<{ children: React.ReactNode }> = ({ children })
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBarStyled position="fixed">
+      {/* O AppBar não precisa da propriedade `open` */}
+      <AppBarStyled position="fixed" sx={{ ...(open && { marginLeft: drawerWidth, width: `calc(100% - ${drawerWidth}px)` }) }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -65,6 +70,7 @@ const PersistentDrawer: React.FC<{ children: React.ReactNode }> = ({ children })
           </Typography>
         </Toolbar>
       </AppBarStyled>
+
       <DrawerStyled variant="persistent" anchor="left" open={open}>
         <div>
           <IconButton onClick={handleDrawerClose}>
@@ -86,13 +92,18 @@ const PersistentDrawer: React.FC<{ children: React.ReactNode }> = ({ children })
           {/* Adicione outros links conforme necessário */}
         </List>
       </DrawerStyled>
+
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           bgcolor: 'background.default',
           padding: 3,
-          marginLeft: open ? drawerWidth : 0,
+          transition: theme => theme.transitions.create(['margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          marginLeft: open ? `${drawerWidth}px` : '0', // Controlando a margem de acordo com o estado do Drawer
         }}
       >
         <Toolbar />

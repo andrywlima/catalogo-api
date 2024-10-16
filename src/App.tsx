@@ -1,21 +1,15 @@
-// src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PersistentDrawer from './components/PersistentDrawer';
-import Home from './pages/Home';
-import Login from './pages/Login'; // Certifique-se de que você tem uma página Login
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes'; // Importando AppRoutes que gerencia todas as rotas
+import { AuthProvider } from './context/AuthContext'; // Certifique-se de que o AuthProvider está correto
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <PersistentDrawer>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          {/* Adicione outras rotas conforme necessário */}
-        </Routes>
-      </PersistentDrawer>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppRoutes /> {/* Gerenciando todas as rotas aqui */}
+      </Router>
+    </AuthProvider>
   );
 };
 

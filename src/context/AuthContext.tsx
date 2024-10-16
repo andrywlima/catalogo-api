@@ -1,4 +1,5 @@
-import React, { createContext, useState, ReactNode } from 'react';
+// src/context/AuthContext.tsx
+import React, { createContext, useContext, useState } from 'react';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -6,29 +7,23 @@ interface AuthContextType {
   logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContextType>({
-  isAuthenticated: false,
-  login: () => false,
-  logout: () => {},
-});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-  const login = (username: string, password: string): boolean => {
-    // Simulação de autenticação
-    if (username === 'admin' && password === 'admin123') {
+  const login = (username: string, password: string) => {
+    if (username === '123' && password === '123') {
+      console.log('Usuário autenticado'); // Log para verificar se o login é bem-sucedido
       setIsAuthenticated(true);
       return true;
     }
+    console.log('Falha na autenticação'); // Log para verificar falha no login
     return false;
   };
-
+  
   const logout = () => {
+    console.log('Usuário desautenticado'); // Log para verificar se o logout é bem-sucedido
     setIsAuthenticated(false);
   };
 
@@ -37,4 +32,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+// Hook para usar o contexto
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };

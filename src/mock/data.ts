@@ -9,7 +9,8 @@ export const apiList: Api[] = [
     version: '1.0.0',
     endpoint: '/api/usuarios',
     documentation: 'https://docs.exemplo.com/usuarios',
-    status:'online'
+    status:'online',
+    githubLink:'google.com/'
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ export const apiList: Api[] = [
     version: '2.1.0',
     endpoint: '/api/produtos',
     documentation: 'https://docs.exemplo.com/produtos',
-    status:'online'
+    status:'online',
+    githubLink:'google.com/'
   },
   // Adicione mais APIs conforme necessário
 ];

@@ -1,6 +1,6 @@
 // src/pages/Login.tsx
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext'; // Importando o hook correto
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
@@ -15,7 +15,7 @@ import {
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const Login: React.FC = () => {
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth(); // Usando o hook
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({ username: '', password: '' });
